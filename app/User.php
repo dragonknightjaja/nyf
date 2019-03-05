@@ -3,10 +3,11 @@
 namespace App;
 
 //use App\Mailer\UserMailer;
-//use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Naux\Mail\SendCloudTemplate;
+
 use Mail;
 
 class User extends Authenticatable
@@ -31,6 +32,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    public function owns(Model $model){
+        return $this->id==$model->user_id;
+    }
     /**
      * send password reset email to user's email base on token.
      *

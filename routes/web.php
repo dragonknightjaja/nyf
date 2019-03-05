@@ -20,9 +20,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('email/verify/{token}',['as' => 'email.verify', 'uses' => 'EmailController@verify']);
 
+Route::get('questions/index','QuestionController@index')->name('question.index');
 Route::get('questions/create','QuestionController@create')->name('question.create');
 Route::post('questions/store','QuestionController@store')->name('question.store');
 Route::get('questions/show/{id}','QuestionController@show')->name('question.show');
+Route::get('questions/edit/{id}','QuestionController@edit')->name('question.edit');
+Route::any('questions/update/{id}','QuestionController@update')->name('question.update');
+Route::delete('questions/delete/{id}','QuestionController@destroy')->name('question.delete');
 
 
 Route::get('articles/create','ArticleController@create')->name('article.create');

@@ -82,7 +82,7 @@
                 <div class="links">
                     <a href="/articles/create">交流区</a>
                     <a href="">资源区</a> 
-                    <a href="/questions/create">问答区</a>
+                    <a href="/questions/index">问答区</a>
                     <a href="">搜索</a>
                     <a href="">个人设置</a>
                 </div>

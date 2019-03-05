@@ -19,7 +19,8 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return 'index';
+        $questions=Question::latest('updated_at')->with('user')->get();
+        return view('questions.index',compact('questions'));
     }
 
     /**
@@ -84,7 +85,12 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $question = Question::find($id);
+        if(Auth::user()->owns($question)){
+            
+            return view('questions.edit',compact('question'));
+        }
+        return back();
     }
 
     /**
@@ -94,9 +100,17 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreQuestionRequest $request,$id)
     {
-        //
+        $question = Question::find($id);
+        $question->update(
+            [
+                'title'=>$request->get('title'),
+                'body'=>$request->get('body'),
+            ]
+        );
+        
+        return view('questions.show',compact('question'));
     }
 
     /**
@@ -107,6 +121,11 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $question = Question::find($id);
+        if(Auth::user()->owns($question)){
+            $question->delete();
+            return  redirect()->route('question.index');
+        }
+        abort(403,'Forbidden');
     }
 }
