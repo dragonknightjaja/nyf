@@ -17,6 +17,13 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
+Route::get('/todos',function(){
+    return response()->json([
+        ['id'=>1,'title'=>'Learn Vue js','completed'=>false],
+        ['id'=>2,'title'=>'Learn Laravel','completed'=>false],
+    ]);
+})->middleware('cors:api');
+
 Route::get('/test', 'AnswersController@test')->middleware("auth:api");
 
 Route::get('/topics','TopicsController@index')->middleware('api');//问题话题api
