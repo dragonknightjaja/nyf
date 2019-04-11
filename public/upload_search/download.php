@@ -17,26 +17,26 @@ header("Content-type: text/html; charset=utf-8");
     $rowCount = null;
 
     //连接数据库
-    $con = mysql_connect("localhost","root","");
+    $con = mysqli_connect("localhost","root","root");
     if (! $con) {
     
-        die('连接失败:'.mysql_error());
+        die('连接失败:'.mysqli_error());
     
     }
-    mysql_query("SET NAMES 'UTF8'");
-    mysql_select_db('wissen',$con);
+    mysqli_query($con,'SET NAMES UTF8');
+    mysqli_select_db($con,'yinfeng');
     
     //一共有多少条数据并计算有多少页
     $sql="select null from source";
-    $result = mysql_query($sql,$con);
-    $rowCount = mysql_num_rows($result);
+    $result = mysqli_query($con,$sql);
+    $rowCount = mysqli_num_rows($result);
     $pageCount = ceil($rowCount/$pageSize);
 
     //计算从第几行数据开始提取，并提取8行数据
     $start = ($page-1)*$pageSize;
     $sql="select * from source limit ".$start.",$pageSize";
         
-    $result = mysql_query($sql,$con);
+    $result = mysqli_query($con,$sql);
 
 
 ?>
@@ -109,7 +109,7 @@ header("Content-type: text/html; charset=utf-8");
                 
                   
                     <?php
-                      while($row = mysql_fetch_array($result)){
+                      while($row = mysqli_fetch_array($result)){
 
                         $id = $row['id'];
                         $id2 = $row['id'].'.zip';

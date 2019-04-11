@@ -80,9 +80,8 @@
                 <h1>比金凤更爱学习</h1>
                 <br>
                 <div class="links">
-                    <a href="/articles/create">交流区</a>
-                    <a href="">资源区</a> 
-                    <a href="/questions/index">问答区</a>
+                    <a href="/questions/index">交流区</a>
+                    <a href="./upload_search/download.php">资源区</a>
                     <a href="">搜索</a>
                     <a href="">个人设置</a>
                 </div>
