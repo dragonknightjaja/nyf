@@ -1,0 +1,153 @@
+.account_container {
+    width: 100%;
+    overflow: hidden;
+    float:left;
+}
+.account_container .mb30 {margin-bottom:30px;}
+.account_l {
+    display: table-cell;
+    padding: 25px 0;
+    padding-top: 25px;
+    padding-right: 0px;
+    padding-bottom: 25px;
+    padding-left: 0px;
+    width: 240px;
+    background-color: #fff;
+    float:left;
+}
+.account_r {
+    display:table-cell;
+    width:840px;
+    float:left;
+}
+.account_menu {margin-bottom:0;}
+.account_menu li {margin-bottom:15px;padding-left:68px;width:100%;height:44px;font-size:16px;font-weight:500;line-height:44px;
+    color: #333;cursor:pointer;}
+.account_menu li .icon {font-size:25px;margin-right:15px;vertical-align:middle;}
+.account_menu li:hover,.account_menu li.active {
+    color:#333;
+    background-color:#fff;
+}
+.account_c_c {width:100%;padding:40px;}
+.account_c_a {width:100%;padding:40px 40px 0 40px;}
+.account_heder {
+    overflow: hidden;
+    height: 100px;
+    line-height: 100px;
+}
+
+.perfect_title {
+    padding-bottom: 20px;
+    border-bottom: 2px solid #fff;
+    margin-bottom: 40px;
+    align-items: center;
+}
+.perfect_row {
+    padding-bottom: 10px;
+    width: 100%;
+}
+.perfect_btn {
+    display: inline-block;
+    width: 100px;
+    height: 36px;
+    font-size: 16px;
+    /*color: #fff;*/
+    line-height: 36px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 3px;
+}
+.perfect_btns .save {
+    background-color: #59b6d7;
+    margin-right: 20px;
+}
+.account_heder .header {
+    float: left;
+    overflow: hidden;
+    margin-right: 40px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 50%;
+    background-color: rgb(255,255,255);
+}
+.account_heder .header img {display: block;}
+.account_heder .perfect_btn {
+    margin-top: 32px;
+    float: left;
+    color: #333;
+    background-color: cornflowerblue;
+    border: 1px solid #dedede;
+}
+
+.account_form_row {
+    margin-bottom: 20px;
+}
+
+.account_form_row .input {
+    float: left;
+    width: 500px;
+    height: 21px;
+}
+.account_form_row .input span {
+    height: 30px;
+    line-height: 30px;
+}
+.account_form_row .input input[type="radio"], .account_form_row .input input[type="checkbox"] {
+    display: none;
+}
+.account_form_row>label {
+    float: left;
+    font-size: 14px;
+    color: #333333;
+    line-height: 30px;
+    margin-right: 30px;
+}
+.account_form_row>label {
+    float:left;
+    font-size:14px;
+    color:#333;
+    line-height:30px;
+    margin-right:30px;
+}
+.account_form_row>label.w80 {
+    width:80px;
+    text-align:right;
+}
+.account_form_row .input label {
+    position: relative;
+    margin-right: 30px;
+    padding-left: 25px;
+    font-size: 14px;
+    color: #ffffff;
+    transition: all .3s;
+}
+.account_form_row input[type="text"], .account_form_row input[type="password"] {
+    width: 500px;
+    font-size: 14px;
+    border: 0;
+    border-bottom: 1px solid #ededed;
+    outline: 0;
+    padding-left: 10px;
+    height: 30px;
+    line-height: 30px;
+}
+.account_form_row input[type="text"],.account_form_row input[type="password"] {
+    width:500px;
+    font-size:14px;
+    border:0;
+    border-bottom:1px solid #ededed;
+    outline:0;
+    padding-left:10px;
+    height:30px;
+    line-height:30px;
+}
+
+
+
+
+
+
+
+

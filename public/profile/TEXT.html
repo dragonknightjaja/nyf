@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <style>
+        body {
+            margin: 0;
+            text-align: center;
+        }
+        #clipArea {
+            margin: auto;
+            height: 400px;
+            width: 400px;
+        }
+        #file,
+        #clipBtn {
+            margin: 20px;
+        }
+        #view {
+            margin: 0 auto;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<div id="clipArea" style="overflow: hidden; position: relative; -ms-user-select: none;">
+    <div class="photo-clip-view" style="left: 50%; top: 50%; width: 260px; height: 260px; margin-top: -130px; margin-left: -130px; position: absolute;">
+        <div class="photo-clip-moveLayer" style="transform: translate(0px, 0px) scale(1) translateZ(0px); transform-origin: 0px 0px 0px; transition-duration: 0ms; transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1);">
+            <div class="photo-clip-rotateLayer"></div>
+        </div>
+    </div>
+    <div class="photo-clip-mask" style="left: 0px; top: 0px; width: 100%; height: 100%; position: absolute; pointer-events: none;">
+        <div class="photo-clip-mask-left" style="left: 0px; top: 50%; width: auto; height: 260px; right: 50%; bottom: 50%; margin-top: -130px; margin-right: 130px; margin-bottom: -130px; position: absolute; background-color: rgba(0, 0, 0, 0.5);"></div>
+        <div class="photo-clip-mask-right" style="left: 50%; top: 50%; right: 0px; bottom: 50%; margin-top: -130px; margin-bottom: -130px; margin-left: 130px; position: absolute; background-color: rgba(0, 0, 0, 0.5);"></div>
+        <div class="photo-clip-mask-top" style="left: 0px; top: 0px; right: 0px; bottom: 50%; margin-bottom: 130px; position: absolute; background-color: rgba(0, 0, 0, 0.5);"></div>
+        <div class="photo-clip-mask-bottom" style="left: 0px; top: 50%; right: 0px; bottom: 0px; margin-top: 130px; position: absolute; background-color: rgba(0, 0, 0, 0.5);"></div>
+        <div class="photo-clip-area" style="border-radius: 50%; border: 1px dashed rgb(0, 0, 0); border-image: none; left: 50%; top: 50%; width: 260px; height: 260px; margin-top: -131px; margin-left: -131px; position: absolute;"></div>
+    </div>
+</div>
+<input id="file" type="file" accept="image/*">
+<button id="clipBtn">截取</button>
+<script src="jquery-3.3.1.js"></script>
+<script src="jquery.photoClip.js"></script>
+<script src="hammer.js"></script>
+<script src="iscroll-zoom.js"></script>
+<script src="lrz.all.bundle.js"></script>
+<script type="text/javascript">
+    //document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    var clipArea = new bjj.PhotoClip("#clipArea", {
+        size: [260, 260],
+        outputSize: [640, 640],
+        file: "#file",
+        view: "#view",
+        ok: "#clipBtn",
+        loadStart: function() {
+            console.log("照片读取中");
+        },
+        loadComplete: function() {
+            console.log("照片读取完成");
+        },
+        clipFinish: function(dataURL) {
+            console.log(dataURL);
+        }
+    });
+    //clipArea.destroy();
+</script>
+</body>
+</html>

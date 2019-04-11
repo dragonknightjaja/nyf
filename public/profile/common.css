@@ -1,0 +1,71 @@
+* {-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+/* 底部置地*/
+html,body,.wrap {
+    height:100%;
+    font-size:100%;
+    background:white;
+    min-width:1200px;
+}
+a {
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    text-decoration: none;
+    color: inherit;
+}
+img {
+    max-width: 100%;
+    border-style: none;
+    vertical-align: middle;
+    object-fit: cover;
+}
+input, button, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    outline: none;
+    resize: none;
+}
+/*导航*/
+.nav {
+    position: relative;
+    width: 100%;
+    height: 64px;
+    background: #fff;
+    min-width: 1200px;
+    background-color: slategrey;
+}
+.nav_list {
+    width: 1080px;
+    margin: auto;
+}
+.nav_list .navs {
+    display: flex;
+    height: 62px;
+    margin-top: 0;
+    margin-bottom: 0;
+    justify-content: flex-start;
+    align-items: center;
+    float: left;
+    color: white;
+}
+.nav_list .navs li {
+    float: left;
+    text-align: center;
+    margin-right: 15px;
+    transition: all .3s;
+    position: relative;
+}
+
+/*内容*/
+.main {
+    float: left;
+    clear: both;
+    width: 100%;
+    padding-bottom: 30px;
+    padding-right: 54px;
+}
+.container {
+    width: 1080px;
+    margin: 36px auto 0 auto;
+}

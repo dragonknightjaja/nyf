@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="account.css">
+    <link rel="stylesheet" href="common.css">
+
+</head>
+<body>
+<div class="wrap">
+    <div class="nav nav_border">
+        <div class="nav_list clearfix">
+            <ul class="navs">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main">
+        <div class="container clearfix">
+            <div class="account_container">
+                <div class="account_1">
+                    <ul class="account_menu">
+                        <a href="User_Edit_Area.html">
+                            <li class="active">基本资料</li>
+                        </a>
+                        <a href="User_Sercurity_Area.html">
+                            <li class="active">安全设置</li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="account_r">
+                    <div class="account_c_c">
+                        <div class="account_tab" id="J-input">
+                            <div class="perfect_title">
+                                <p>修改密码</p>
+                            </div>
+                            <div class="account_form_row">
+                                <label class="w80 required" for="old_password"><font color="red">*</font>原密码</label>
+                                <input id="old_password" name="old_password" type="password">
+                            </div>
+                            <div class="account_form_row">
+                                <label class="w80 required" for="password"><font color="red">*</font>设置新密码</label>
+                                <input id="password" name="password" type="password">
+                            </div>
+                            <div class="account_form_row">
+                                <label class="w80 required" for="password_confirmation"><font color="red">*</font>确认新密码</label>
+                                <input id="password_confirmation" name="password_confirmation" type="password">
+                            </div>
+                            <div class="perfect_btns">
+                                <a class="perfect_btn save" id="J-user-security" href="javascript:;">保存</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="layui-layer-shade" id="layui-layer-shade6" times="6" style="z-index:19891019; background-color:#000; opacity:0.5; filter:alpha(opacity=50);"></div>
+<script type="text/javascript">
+    $('#J-user-security').on('click', function() {
+        getArgs = function () {
+            var inp = $('#J-input input').toArray();
+            var sel;
+            var args = {};
+            for (var i in inp) {
+                sel = $(inp[i]);
+                args[sel.attr('name')] = sel.val();
+            }
+            return args;
+        };
+        data = getArgs();
+        if (('1' == '1') && data.old_password.length < 1) {
+            alert('请输入原密码');
+            $('input[name="old_password"]').focus();
+            return false;
+        }
+        if (data.password.length < 6 || data.password.length > 15) {
+            alert('密码长度必须在6-15个字符');
+            $('input[name="password"]').focus();
+            return false;
+        }
+        if (data.password != data.password_confirmation) {
+            alert('两次密码输入不一致');
+            $('input[name="password_confirmation"]').focus();
+            return false;
+        }
+        js = JSON.stringify(data);
+        alert(js);
+        $.ajax({
+            url:"changeUserPassW.php",
+            type:"POST",
+            data:js,
+            dataType:"JSON",
+            success:function () {
+                alert("45");
+            }
+        })
+        $.ajax({
+            url:"changeUserPassW.php",
+            type:"GET",
+            success:function (data) {
+                alert(data);
+            }
+        })
+    })
+</script>
+</body>
+</html>

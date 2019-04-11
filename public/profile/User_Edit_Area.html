@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Title</title>
+    <script src="jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="account.css">
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="layer.css">
+    <link rel="stylesheet" href="avatar.css">
+    <link rel="stylesheet" href="cropper.css">
+</head>
+<body>
+<div class="wrap">
+    <div class="nav nav_border">
+        <div class="nav_list clearfix">
+            <ul class="navs">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main">
+        <div class="container clearfix">
+            <div class="account_container">
+                <div class="account_1">
+                    <ul class="account_menu">
+                        <a href="User_Edit_Area.html">
+                            <li class="active">基本资料</li>
+                        </a>
+                        <a href="User_Sercurity_Area.html">
+                            <li class="active">安全设置</li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="account_r">
+                    <div class="account_c_c" id="J-input">
+                        <div class="account_tab">
+                            <div class="perfect_title">
+                                <p>基本资料</p>
+                            </div>
+                            <div class="perfect_row mb30">
+                                <div class="accoint_heder">
+                                    <div class="header">
+                                        <img id="J-image-preview" style="border-radius: 50px; width: 100px; height: 100px; transform: none; " src="image/pic_default_secret.png">
+                                        <input id="task_id" name="storage_task_id" type="hidden">
+                                    </div>
+                                    <a class="perfect_btn" id="J-file-upload_btn" href="javascript:changePicture();" >更改头像</a>
+                                </div>
+                            </div>
+                            <div class="perfect_row mb30">
+                                <form id = "J-user-form-info" action="#" method="post">
+                                    <div class="account_form_row">
+                                        <label for="name">昵称</label>
+                                        <input id="name" name="name" type="text" maxlength="8" required="required">
+                                    </div>
+                                    <div class="account_form_row">
+                                            <span>
+                                                <input id="male" name="sex" type="radio" value="0">
+                                                <label for="male">"男"</label>
+                                            </span>
+                                        <span>
+                                                <input id="female" name="sex" type="radio" value="1">
+                                                <label for="female">"女"</label>
+                                            </span>
+                                        <span>
+                                                <input id="secret" name="sex" type="radio" value="2">
+                                                <label for="secret">"不方便透露"</label>
+                                            </span>
+                                    </div>
+                                    <div class="account_form_row">
+                                        <label for="area">地区</label>
+                                        <input id="location" name="location" type="text" required="required" value placeholder="请输入地区（例如：汕头）">
+                                        <div class="area_searching" style="display:none"></div>
+                                    </div>
+                                    <!--<div class="perfect_btns">-->
+                                        <!--<input class="perfect_btn save" id="J-info" type="submit" >保存</input>-->
+                                    <!--</div>-->
+                                </form>
+                            </div>
+                            <div class="perfect_btns" id="qq">
+                                <a class="perfect_btn save" id="J-user-info" href="javascript:;">保存</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="layui-layer-shade" id="layui-layer-shade6" times="6" style="z-index:19891019; background-color:#000; opacity:0.5; filter:alpha(opacity=50);"></div>
+<div id="ly" class="layui-layer layui-layer-page layer-anim" id="layui-layer1" style="display: none" type="page" times="1" contype="string">
+    <div class="layui-layer-title" style="cursor: move;">上传头像</div>
+    <div class="layui-layer-content" >
+        <div id="model">
+            <div class="avatar-container" id="crop-avatar">
+                <div class="avatar-upload">
+                    <input name="avatar_src" class="avatar-src" type="hidden">
+                    <input name="avatar_file" class="avatar-input" id="avatarInput" type="file">
+                    <label class="avatar-file" for="avatarInput">选择图片</label>
+                </div>
+                <div class="avatar-wrapper" id="avatar-wrapper">
+                    <!--<img class="cropper-hidden">-->
+                    <!--<div class="photo-clip-view" >-->
+                        <!--<div class="photo-clip-moveLayer" style="transform: translate(0px, 0px) scale(1) translateZ(0px); transform-origin: 0px 0px 0px; transition-duration: 0ms; transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1);">-->
+                            <!--<div class="photo-clip-rotateLayer">-->
+                                <!--<img id="crop-img"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="photo-clip-mask" style="left: 0px; top: 0px; width: 100%; height: 100%; position: absolute; pointer-events: none;">-->
+                        <!--<div class="photo-clip-mask-left" style="left: 20px; top: 44.2%; right: 50%; bottom: 43.7%; margin-top: -130px; margin-right: 130px; margin-bottom: -130px; position: absolute; background-color: rgba(0, 0, 0, 0.5);"></div>-->
+                        <!--<div class="photo-clip-mask-right" style="left: 50%; top: 44.2%; right: 20px; bottom: 43.7%; margin-top: -130px; margin-bottom: -130px; margin-left: 130px; position: absolute; background-color: rgba(0, 0, 0, 0.5);"></div>-->
+                        <!--<div class="photo-clip-mask-top" style="left: 170px; top: 64px; right: 170px; bottom: 50%; margin-bottom: 130px; position: absolute; background-color: rgba(0, 0, 0, 0.5);"></div>-->
+                        <!--<div class="photo-clip-mask-bottom" style="left: 170px; top: 50%; right: 170px; bottom: 62px; margin-top: 130px; position: absolute; background-color: rgba(0, 0, 0, 0.5);"></div>-->
+                        <!--<div class="photo-clip-area" style="border-radius: 50%; border: 1px dashed rgb(0, 0, 0); border-image: none; left: 50%; top: 50%; width: 260px; height: 260px; margin-top: -131px; margin-left: -131px; position: absolute;"></div>-->
+                    <!--</div>-->
+                </div>
+                <div class="save-btn">
+                    <span>上传完成记得点击保存按钮</span>
+                    <button type="button" class="btn btn-primary avatar-save" id="avatar-save">完成</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="layui-layer-setwin">
+        <a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a>
+    </span>
+    <span class="layui-layer-resize"></span>
+</div>
+<script src="cropper.js"></script>
+<script src="jquery.photoClip.js"></script>
+<script src="hammer.js"></script>
+<script src="iscroll-zoom.js"></script>
+<script src="lrz.all.bundle.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // $.get('getUserInfo.php','',function (data) {
+        //     alert(data.name);
+        // })
+        $.ajax({
+            url:"getUserInfo.php",
+            type:"POST",
+            success:function (data) {
+                result = JSON.parse(data);
+                $("input[id='name']").attr('placeholder', result.name);
+                //$("input[id='name']").attr('value', result.name);
+                $("input[id='location']").attr('placeholder', result.area);
+                //$("input[id='location']").attr('value', result.area);
+                switch (parseInt(result.sex)) {
+                    case 0:$("input[id='male']").attr('checked', true);break;
+                    case 1:$("input[id='female']").attr('checked', true);break;
+                    case 2:$("input[id='secret']").attr('checked', true);break;
+                }
+            }
+        })
+
+        $("a[id='J-user-info']").on('click',function () {
+            // u_info = $("form").serialize();
+            // $.ajax({
+            //     url:"saveUserInfo.php",
+            //     data:u_info,
+            //     type:"POST",
+            //     success:function(){
+            //         alert(u_info);
+            //     }
+            // })
+
+
+            // Name = $("input[id='name']").attr("value");
+            // sex = $("input[id='sex']").attr("value");
+            // location = $("input[id='location']").attr("value");
+            $.ajax({
+                url:"saveUserInfo.php",
+                data:{"name":"CRK"},
+                type:"POST",
+                contentType:"application/x-www-form-urlencoded",
+                success:function(){
+                    alert('1');
+                },
+                error:function(){
+                    alert('3');
+                }
+            })
+        })
+    })
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#avatar-save").on('click',function(){
+            imgUrl = document.getElementById('J-image-preview').getAttribute('src');
+            $.ajax({
+                url:"saveUserInfo.php",
+                data:{"user_IMG":imgUrl},
+                type:"POST",
+                success:function(){
+                    alert(imgUrl);
+                }
+            })
+        })
+    })
+</script>
+<script type="text/javascript">
+    function loadhtml(html){
+        $.each($(".avatar-wrapper"),function (i,t) {
+            $(t).html(html);
+        })
+    }
+    // function loadhtml(html){
+    //     $.each($(".photo-clip-rotateLayer"),function (i,t) {
+    //         $(t).html(html);
+    //     })
+    // }
+    $(document).ready(function(){
+        // var $container, // 容器，包含裁剪视图层和遮罩层
+        //     $clipView, // 裁剪视图层，包含移动层
+        //     $moveLayer, // 移动层，包含旋转层
+        //     //$rotateLayer, // 旋转层
+        //     $view, // 最终截图后呈现的视图容器
+        //     canvas, // 图片裁剪用到的画布
+        //     //hammerManager,
+        //     myScroll, // 图片的scroll对象，包含图片的位置与缩放信息
+        //     containerWidth,
+        //     containerHeight;
+        // function init() {
+        //     // 初始化容器
+        //     $container = document.getElementById("avatar-wrapper");
+        //     //if ($container.css("position") == "static") $container.css("position", "relative");
+        //
+        //     // 创建裁剪视图层
+        //     $clipView = $("<div class='photo-clip-view'>").css({
+        //         "position": "absolute",
+        //         "left": "50%",
+        //         "top": "50%",
+        //         "width": clipWidth,
+        //         "height": clipHeight,
+        //         "margin-left": -clipWidth/2,
+        //         "margin-top": -clipHeight/2
+        //     }).appendTo($container);
+        //
+        //     $moveLayer = $("<div class='photo-clip-moveLayer'>").appendTo($clipView);
+        //
+        //     $rotateLayer = $("<div class='photo-clip-rotateLayer'>").appendTo($moveLayer);
+        //
+        //     // 创建遮罩
+        //     var $mask = $("<div class='photo-clip-mask'>").css({
+        //         "position": "absolute",
+        //         "left": 0,
+        //         "top": 0,
+        //         "width": "100%",
+        //         "height": "100%",
+        //         "pointer-events": "none"
+        //     }).appendTo($container);
+        //     var $mask_left = $("<div class='photo-clip-mask-left'>").css({
+        //         "position": "absolute",
+        //         "left": "20px",
+        //         "right": "50%",
+        //         "top": "44.2%",
+        //         "bottom": "43.7%",
+        //         "margin-right": "130px",
+        //         "margin-top": "-130px",
+        //         "margin-bottom": "-130px",
+        //         "background-color": "rgba(0,0,0,.5)"
+        //     }).appendTo($mask);
+        //     var $mask_right = $("<div class='photo-clip-mask-right'>").css({
+        //         "position": "absolute",
+        //         "left": "50%",
+        //         "right": "20px",
+        //         "top": "44.2%",
+        //         "bottom": "43.7%",
+        //         "margin-left": "130px",
+        //         "margin-top": "-130px",
+        //         "margin-bottom": "-130px",
+        //         "background-color": "rgba(0,0,0,.5)"
+        //     }).appendTo($mask);
+        //     var $mask_top = $("<div class='photo-clip-mask-top'>").css({
+        //         "position": "absolute",
+        //         "left": "170px",
+        //         "right": "170px",
+        //         "top": "64px",
+        //         "bottom": "50%",
+        //         "margin-bottom": "130px",
+        //         "background-color": "rgba(0,0,0,.5)"
+        //     }).appendTo($mask);
+        //     var $mask_bottom = $("<div class='photo-clip-mask-bottom'>").css({
+        //         "position": "absolute",
+        //         "left": "170px",
+        //         "right": "170px",
+        //         "top": "50%",
+        //         "bottom": "62px",
+        //         "margin-top": "130px",
+        //         "background-color": "rgba(0,0,0,.5)"
+        //     }).appendTo($mask);
+        //     // 创建截取区域
+        //     var $clip_area = $("<div class='photo-clip-area'>").css({
+        //         "border": "1px dashed #ddd",
+        //         "position": "absolute",
+        //         "left": "50%",
+        //         "top": "50%",
+        //         "border-radius":"50%",  //截图区的圆形
+        //         "border-color":"#000",  //圆形区的颜色
+        //         "width": clipWidth,
+        //         "height": clipHeight,
+        //         "margin-left": -clipWidth/2 - 1,
+        //         "margin-top": -clipHeight/2 - 1
+        //     }).appendTo($mask);
+        //
+        //     // // 初始化视图容器
+        //     // $view = $(view);
+        //     // if ($view.length) {
+        //     // 	$view.css({
+        //     // 		"border-radius":"50%",  //修改预览试图的表现形式
+        //     // 		"background-color": "#666",
+        //     // 		"background-repeat": "no-repeat",
+        //     // 		"background-position": "center",
+        //     // 		"background-size": "contain"
+        //     // 	});
+        //     // }
+        // }
+        $("a[id = 'J-file-upload_btn']").on('click',function(){
+            $("#ly").attr({
+                style:"display:block; width: 600px; height: 500px; margin-left: 250px; z-index: 19891015;"
+            })
+            //init();
+        })
+        $("a[class = 'layui-layer-ico layui-layer-close layui-layer-close1']").on('click',function () {
+            $("#ly").attr({
+                style:"display:none;"
+            })
+        })
+        // var clipArea = new bjj.PhotoClip("#avatar-wrapper", {
+        //     size: [260, 260],
+        //     outputSize: [640, 640],
+        //     file: "#avatarInput",
+        //     view: "#view",
+        //     ok: "save-btn",
+        //     loadStart: function() {
+        //         console.log("照片读取中");
+        //     },
+        //     loadComplete: function() {
+        //         console.log("照片读取完成");
+        //     },
+        //     clipFinish: function(dataURL) {
+        //         console.log(dataURL);
+        //     }
+        // });
+        $("#avatarInput").change(function(){
+            // var clipArea = new bjj.PhotoClip("#avatar-wrapper", {
+            //     size: [260, 260],
+            //     outputSize: [640, 640],
+            //     file: "#avatar_file",
+            //     view: "#view",
+            //     ok: "#save-btn",
+            //     loadStart: function() {
+            //         console.log("照片读取中");
+            //     },
+            //     loadComplete: function() {
+            //         console.log("照片读取完成");
+            //     },
+            //     clipFinish: function(dataURL) {
+            //         console.log(dataURL);
+            //     }
+            // });
+            function getObjectURL(file) {
+                var imgdir = null;
+                if (window.createObjcectURL != undefined) {
+                    imgdir = window.createOjcectURL(file);
+                } else if (window.URL != undefined) {
+                    imgdir = window.URL.createObjectURL(file);
+                } else if (window.webkitURL != undefined) {
+                    imgdir = window.webkitURL.createObjectURL(file);
+                }
+                return imgdir;
+            }
+            var imgdir = getObjectURL(this.files[0]);
+            // //$("img[class = 'cropper-hidden']").attr('src',imgdir);
+            // //crophtml = '<img class="cropper-hidden">;'
+            cropperhtml = '<img class="cropper-hidden">' +
+                    '<div class="cropper-container cropper-bg" style="width: 560px; height: 314px;">' +
+                    '<div class="cropper-wrap-box">'+
+                    '<div class="cropper-canvas" style="width: 558.22px; height: 314px; transform: translateX(0.888889px);">' +
+                    '<img class="cropper-hidden1" style="width: 558.22px; height: 314px; transform: none;">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="cropper-drag-box cropper-modal cropper-crop">' +
+                    '</div>' +
+                    '<div class="cropper-crop-box" style="width: 219.2px; height: 219.2px; transform: translateX(154.4px) translateY(31.4px);">' +
+                    '<span class="cropper-view-box">' +
+                    '<img class="cropper-hidden2" style="width: 558.22px; height: 314px; transform: translateX(-153.511px) translateY(-31.4px);" >' +
+                    '</span><span class="cropper-dashed dashed-h">' +
+                    '</span>' +
+                    '<span class="cropper-dashed dashed-v">' +
+                    '</span>' +
+                    '<span class="cropper-center">' +
+                    '</span>' +
+                    '<span class="cropper-face cropper-move">'+
+                    '</span>'+
+                    '<span class="cropper-line line-e" data-action="e">'+
+                    '</span>'+
+                    '<span class="cropper-line line-n" data-action="n">'+
+                    '</span>'+
+                    '<span class="cropper-line line-w" data-action="w">' +
+                    '</span>'+
+                    '<span class="cropper-line line-s" data-action="s">'+
+                    '</span>'+
+                    '<span class="cropper-point point-e" data-action="e">' +
+                    '</span>'+
+                    '<span class="cropper-point point-n" data-action="n">'+
+                    '</span>'+
+                    '<span class="cropper-point point-w" data-action="w">'+
+                    '</span><span class="cropper-point point-s" data-action="s">'+
+                    '</span>'+
+                    '<span class="cropper-point point-ne" data-action="ne">'+
+                    '</span>'+
+                    '<span class="cropper-point point-nw" data-action="nw">'+
+                    '</span>'+
+                    '<span class="cropper-point point-sw" data-action="sw">'+
+                    '</span>'+
+                    '<span class="cropper-point point-se" data-action="se">'+
+                    '</span>'+
+                    '</div>'+
+                    '</div>';
+            loadhtml(cropperhtml);
+            // //loadhtml(crophtml);
+            // $img = document.getElementById("crop-img");
+            // $img.attr("src", imgdir); // 设置图片base64值
+            // var imgdir;
+            // function getIMG(file) {
+            //     var fileReader = new FileReader();
+            //
+            //     fileReader.onprogress = function (e) {
+            //         console.log((e.loaded / e.total * 100).toFixed() + "%");
+            //     };
+            //
+            //     fileReader.onload = function (ev) {
+            //         alert("1");
+            //         lrz(file)
+            //             .then(function (rst) {
+            //                 // 处理成功会执行
+            //                 //createImg(rst.base64);
+            //                 imgdir = rst.base64;
+            //                 alert("1");
+            //             })
+            //     };
+            //     fileReader.onerror = function (e) {
+            //         alert("图片加载失败");
+            //         loadError.call(this, e);
+            //     }
+            // }
+            // getIMG(this.files[0]);
+            // function createImg(src) {
+            //     $img = document.getElementById('img');
+            //     $img.attr("src", src); // 设置图片base64值
+            // }
+
+            // cropperhtml = '<img class="cropper-hidden">' +
+            //         '<div class="cropper-container cropper-bg" style="width: 560px; height: 314px;">' +
+            //         '<div class="cropper-wrap-box">'+
+            //         '<div class="cropper-canvas" style="width: 558.22px; height: 314px; transform: translateX(0.888889px);">' +
+            //         '<img class="cropper-hidden1" style="width: 558.22px; height: 314px; transform: none;">' +
+            //         '</div>' +
+            //         '</div>'+
+            //         '</div>';
+            loadhtml(cropperhtml);
+            $("img[class = 'cropper-hidden']").attr('src',imgdir);
+            $("img[class = 'cropper-hidden1']").attr('src',imgdir);
+            $("img[class = 'cropper-hidden2']").attr('src',imgdir);
+            $("img[id = 'J-image-preview']").attr('src',imgdir);
+        })
+    })
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        initClip();
+        $("div[class='save-btn']").on("click",function(){
+            clipImg();
+        })
+
+        var $container, // 容器，包含裁剪视图层和遮罩层
+            $clipView, // 裁剪视图层，包含移动层
+            $moveLayer, // 移动层，包含旋转层
+            //$rotateLayer, // 旋转层
+            $view, // 最终截图后呈现的视图容器
+            canvas, // 图片裁剪用到的画布
+            //hammerManager,
+            myScroll, // 图片的scroll对象，包含图片的位置与缩放信息
+            containerWidth,
+            containerHeight;
+        function initClip() {
+            canvas = document.getElementsByClassName("cropper-canvas");
+        }
+        function init(){
+            $container = $('div[class="avatar-wrapper"]');
+            $clipView = $("div[class='photo-clip-view']").appendTo($container);
+            $moveLayer = $("div[class='photo-clip-rotateLayer']");
+
+        }
+        function clipImg() {
+            // if (!imgLoaded) {
+            //     alert("亲，当前没有图片可以裁剪!");
+            //     return;
+            // }
+            //var local = loaclToLoacl($moveLayer, $clipView);
+            //var scale = myScroll.scale;
+            var ctx = canvas.getContext("2d");
+            // ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // ctx.save();
+            alert('123');
+            canvas.width = 219.2;
+            canvas.height = 219.2;
+
+            ctx.translate(canvas.width, canvas.height);
+            ctx.rotate(180 * Math.PI / 180);
+            $picture = document.getElementsByClassName('cropper-hidden');
+            alert('789');
+            ctx.drawImage($picture[0], 0, 0);
+            ctx.restore();
+            $view = document.getElementsByClassName('J-image-preview');
+            var dataURL = canvas.toDataURL("image/jpeg", 1);
+            $view.css("background-image", "url("+ dataURL +")");
+            //clipFinish.call($img[0], dataURL);
+            alert('456');
+        }
+        // function loaclToLoacl($layerOne, $layerTwo, x, y) { // 计算$layerTwo上的x、y坐标在$layerOne上的坐标
+        //     x = x || 0;
+        //     y = y || 0;
+        //     var layerOneOffset, layerTwoOffset;
+        //     hideAction($layerOne, function() {
+        //         layerOneOffset = $layerOne.offset();
+        //     });
+        //     hideAction($layerTwo, function() {
+        //         layerTwoOffset = $layerTwo.offset();
+        //     });
+        //     return {
+        //         x: layerTwoOffset.left - layerOneOffset.left + x,
+        //         y: layerTwoOffset.top - layerOneOffset.top + y
+        //     };
+        // }
+        // function hideAction(jq, func) {
+        //     var $hide = $();
+        //     $.each(jq, function(i, n){
+        //         var $n = $(n);
+        //         var $hidden = $n.parents().andSelf().filter(":hidden");
+        //         var $none;
+        //         for (var i = 0; i < $hidden.length; i++) {
+        //             if (!$n.is(":hidden")) break;
+        //             $none = $hidden.eq(i);
+        //             if ($none.css("display") == "none") $hide = $hide.add($none.show());
+        //         }
+        //     });
+        //     if (typeof(func) == "function") func.call(this);
+        //     $hide.hide();
+        // }
+    })
+</script>
+<script type="text/javascript">
+    $(function () {
+        //var console = window.console || { log: function () {} };
+        function CropAvatar($element) {
+            this.$container = $element;
+            this.$avatarInput = this.$container.find('.avatar-input');
+            this.$avatarWrapper = this.$container.find('.avatar-wrapper');
+            this.$avatarPreview = this.$container.find('.avatar-preview');
+            this.$avatarSave = this.$container.find('.avatar-save');
+            this.init();
+        }
+
+        // base64
+        function dataURLtoBlob(dataurl) {
+            var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new Blob([u8arr], {type: mime});
+        }
+
+        // get round avater
+        function getRoundedCanvas(sourceCanvas) {
+            var canvas = document.createElement('canvas');
+            var context = canvas.getContext('2d');
+            var width = sourceCanvas.width;
+            var height = sourceCanvas.height;
+
+            canvas.width = width;
+            canvas.height = height;
+            context.beginPath();
+            context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 2 * Math.PI);
+            context.strokeStyle = 'rgba(0,0,0,0)';
+            context.stroke();
+            context.clip();
+            context.drawImage(sourceCanvas, 0, 0, width, height);
+
+            return canvas;
+        }
+
+        CropAvatar.prototype = {
+            constructor: CropAvatar,
+            support: {
+                fileList: !!$('<input type="file">').prop('files'),
+                blobURLs: !!window.URL && URL.createObjectURL,
+                formData: !!window.FormData
+            },
+            init: function () {
+                this.support.datauri = this.support.fileList && this.support.blobURLs;
+                this.fileUpload = {};
+                this.addListener();
+            },
+            addListener: function () {
+                this.$avatarInput.on('change', $.proxy(this.change, this));
+                this.$avatarSave.on('click', $.proxy(this.click, this));
+            },
+            click: function () {
+                if (this.fileUpload.mime_type) {
+                    // 默认宽高 160
+                    var croppedCanvas = this.$img.cropper('getCroppedCanvas');
+                    var roundedCanvas = getRoundedCanvas(croppedCanvas); // 获取圆形头像
+                    var dataurl = roundedCanvas.toDataURL('image/jpg');
+                    var blob = dataURLtoBlob(dataurl);
+                    /*blob.name = this.fileUpload.origin_filename;
+                    this.$avatarSave.text('上传中...');
+                    fileUpload.init(blob, updateImg);*/
+                    this.upload(blob, dataurl);
+                } else {
+                    ly.error('请选择上传文件', false);
+                }
+            },
+            upload: function (blob, url) {
+                var _this = this;
+
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var base64 = e.target.result;
+                    var hash = md5(base64);
+
+                    _this.$avatarSave.text('上传中...');
+                    var params = {
+                        filename: md5(_this.fileUpload.origin_filename) + '.'
+                            + _this.fileUpload.origin_filename.split('.').splice(-1),
+                        hash: hash,
+                        size: blob.size,
+                        mime_type: 'image/jpg',
+                        storage: { channel: 'public' },
+                    }
+                    // axios.post('/api/v2/storage', params).then(function(res) {
+                    //     var result = res.data;
+                    //     var node = result.node;
+                    //     var instance = axios.create();
+                    //     instance.request({
+                    //         method: result.method,
+                    //         url: result.uri,
+                    //         headers: result.headers,
+                    //         data: blob,
+                    //     }).then(function(res) {
+                    //         // 头像上传成功后，更新用户头像
+                    //         axios.patch('/api/v2/user', {avatar: node}).then(function () {
+                    //             _this.insert(url);
+                    //         }).catch(function (error) {
+                    //             showError(error.response.data);
+                    //         })
+                    //     }).catch(function (error) {
+                    //         showError(error.response.data);
+                    //     })
+                    // }).catch(function (error) {
+                    //     showError(error.response.data);
+                    // })
+                }
+                var file = new File([blob], _this.fileUpload.origin_filename, {
+                    type: 'image/png',
+                    lastModified: new Date()
+                })
+                reader.readAsArrayBuffer(file);
+            },
+            insert: function (src) {
+                $('#J-image-preview').attr('src', src);
+                layer.closeAll();
+                noticebox('修改头像成功', 1);
+            },
+            change: function () {
+                var files, file;
+                if (this.support.datauri) {
+                    files = this.$avatarInput.prop('files');
+                    if (files.length > 0) {
+                        file = files[0];
+                        this.fileUpload.mime_type = file.type;
+                        this.fileUpload.origin_filename = file.name;
+                        if (this.isImageFile(file)) {
+                            if (this.url) {
+                                URL.revokeObjectURL(this.url); // Revoke the old one
+                            }
+                            this.url = URL.createObjectURL(file);
+                            this.startCropper();
+                        }
+                    }
+                } else {
+                    file = this.$avatarInput.val();
+                    if (this.isImageFile(file)) {
+                        this.syncUpload();
+                    }
+                }
+            },
+            startCropper: function () {
+                var _this = this;
+                if (this.active) {
+                    this.$img.cropper('replace', this.url);
+                } else {
+                    this.$img = $('<img src="' + this.url + '">');
+                    this.$avatarWrapper.empty().html(this.$img);
+                    this.$img.cropper({
+                        aspectRatio: 1, //设置剪裁容器的比例
+                        viewMode: 1,
+                        preview: this.$avatarPreview.selector, //添加额外的元素（容器）的预览
+                    });
+                    this.active = true;
+                }
+            },
+        }
+    })
+</script>
+</body>
+</html>
