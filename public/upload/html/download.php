@@ -17,14 +17,19 @@ header("Content-type: text/html; charset=utf-8");
     $rowCount = null;
 
     //连接数据库
-    $con = mysql_connect("localhost","root","");
-    if (! $con) {
+    // $con = mysql_connect("localhost","root","");
+    // if (! $con) {
     
-        die('连接失败:'.mysql_error());
+    //     die('连接失败:'.mysql_error());
     
+    // }
+    // mysql_query("SET NAMES 'UTF8'");
+    // mysql_select_db('wissen',$con);
+    $conn = new mysqli("localhost", "root", "", "");
+    if(!$conn){
+      die("Connection failed: " . mysqli_connect_error());
     }
-    mysql_query("SET NAMES 'UTF8'");
-    mysql_select_db('wissen',$con);
+
     //是否 有按类型筛选的需求
     $Type = $_GET['type'];
     $limit = "";
@@ -52,17 +57,17 @@ header("Content-type: text/html; charset=utf-8");
     }
     //一共有多少条数据并计算有多少页
     $sql="select null from source $limit";
-    $result = mysql_query($sql,$con);
+    //$result = mysql_query($sql,$con);
+    $result = mysqli_query($conn, $sql);
     $rowCount = mysql_num_rows($result);
     $pageCount = ceil($rowCount/$pageSize);
 
     //计算从第几行数据开始提取，并提取8行数据
     $start = ($page-1)*$pageSize;
     $sql="select * from source $limit limit $start,$pageSize";
-        
-    $result = mysql_query($sql,$con);
-
-
+    
+    mysqli_query($conn, $sql);
+    //$result = mysql_query($sql,$con);
 ?>
 
 
@@ -136,7 +141,7 @@ header("Content-type: text/html; charset=utf-8");
                 
                   
                     <?php
-                      while($row = mysql_fetch_array($result)){
+                      while($row = mysqli_fetch_assoc($result)){
 
                         $id = $row['id'];
                         $id2 = $row['id'].'.zip';
