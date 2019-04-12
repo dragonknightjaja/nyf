@@ -81,7 +81,7 @@
                 <br>
                 <div class="links">
                     <a href="/questions/index">交流区</a>
-                    <a href="./upload_search/download.php">资源区</a>
+                    <a href="./upload/html/download.php">资源区</a>
                     <a href="">搜索</a>
                     <a href="">个人设置</a>
                 </div>
