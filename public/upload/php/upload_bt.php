@@ -27,15 +27,14 @@
             /* 上传正确
             * 往 torrent 表中插入数据
             */
-            $con = mysql_connect("localhost","root","");
-            if (! $con) {
-        
-                die('连接失败:'.mysql_error());
-                
+            //$con = mysql_connect("localhost","root","");
+            $conn = new mysqli("localhost", "root", "root", "yinfeng");
+            if (! $conn) {
+                die("Connection failed: " . mysqli_connect_error());
             }
 
-            mysql_select_db('wissen',$con);
-            mysql_query('SET NAMES UTF8'); //避免数据库返回中文时出现乱码
+            //mysql_select_db('wissen',$con);
+            //mysql_query('SET NAMES UTF8'); //避免数据库返回中文时出现乱码
             //种子信息和用户名
             $user = $_SESSION['user'];
             $bt_name = $_POST['name'];
@@ -48,15 +47,14 @@
                 values
                 ('$user' , '$bt_name' , '$bt_describe' , '$type');";
             
-            if( !mysql_query($sql,$con) ){
-
-                die('Error:'.mysql_error());
+            if( !mysqli_query($conn, $sql) ){
+                die("Connection failed: " . mysqli_connect_error());
             }
 
             //根据数据 id 储存在服务器中，避免文件名重复
             $sql= "select id from source where bt_name='$bt_name';";
-            $result = mysql_query($sql,$con);
-            while($row = mysql_fetch_array($result) ){
+            $result = mysqli_query($conn, $sql);
+            while($row =  mysqli_fetch_assoc($result) ){
                 
                 $store_id = $row['id'];
                 move_uploaded_file($_FILES['file']['tmp_name'] , '../source/' . $store_id .'.' . $extension);
@@ -65,7 +63,7 @@
 
             
             //关闭数据库
-            mysql_close($con);
+            mysqli_close($conn);
         }
 
     }else{
