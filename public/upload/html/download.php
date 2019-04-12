@@ -25,7 +25,7 @@ header("Content-type: text/html; charset=utf-8");
     // }
     // mysql_query("SET NAMES 'UTF8'");
     // mysql_select_db('wissen',$con);
-    $conn = new mysqli("localhost", "root", "", "");
+    $conn = new mysqli("localhost", "root", "root", "yinfeng");
     if(!$conn){
       die("Connection failed: " . mysqli_connect_error());
     }
