@@ -1,0 +1,35 @@
+html,body{
+    padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: rgb(255, 255, 255);
+  }
+.container{
+    position: absolute;
+    width: 35%;
+    top: 30%;
+    left: 15%;
+    background-color: rgb(255, 255, 255);
+    opacity: 0.9;
+    height: 500px;
+}
+h1{
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    background-color: rgb(255, 255, 255);
+    opacity: 0.9;
+}
+.type, .describe{
+    position: relative;
+    top: 20px;
+}
+.label{
+    cursor: pointer;
+}
+.file{
+    position: relative;
+    top: 20%;
+}

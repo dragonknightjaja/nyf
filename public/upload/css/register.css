@@ -1,0 +1,18 @@
+#body{
+  background-image: url("../image/background.jpg");
+}
+#register_frame {
+    width: 450px;
+    height: 100px;
+    padding: 13px;
+
+    position: absolute;
+    left: 40%;
+    top: 40%;
+
+
+    background-color: rgba(240, 255, 255, 0.5);
+
+    border-radius: 10px;
+    text-align: center;
+}

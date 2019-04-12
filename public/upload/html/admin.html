@@ -1,0 +1,185 @@
+<!--
+  该页的显示效果 : 滚动条拉到最底会触发addData ，通过ajax获取并显示新的十条用户数据.
+-->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+    <script src="../jquery/jquery-3.3.1.min.js"></script>
+    <title>用户管理系统</title>
+    <style type="text/css">
+    
+      th,td{
+        padding:8px;
+        text-align: left;
+      }
+
+
+		</style>
+  </head>
+  <body>
+    <h1>用户管理系统</h1>
+    <div style=" overflow:scroll; height:400px;" class="scroll">
+      <table class="table table-striped" id="mytable">
+          <tr>
+            <th>id</th>
+            <th>username</th>
+            <th>password</th>
+            <th>操作</th>
+          </tr>
+        </table>
+      </div>
+  </body>
+  <script>
+
+  $(document).ready(function(){
+      //第一次打开页面先获取前十条用户信息并显示
+      $.ajax({
+          url:'../php/showAdmin2.php',
+          type:'get',
+          data:'',
+          success:function (data) {
+            //数据返回成功就添加用户数据
+            //默认用'&'分隔数据
+            var datas = data.split('&');
+            var users = new Array();
+            var passwords = new Array();
+
+            //将用户名与密码分开
+            for(var i = 0, j = 0;i < datas.length;i = i + 2){
+
+              users[j] = datas[i];
+              passwords[j] = datas[i+1];
+              j++;
+            }
+
+           // var otable = document.getElementById("mytable");
+          //往 table 中添加数据
+          for(var i = 0 ; i<users.length ; i++){
+            
+            //将 td 加到 table 中
+   /*         var otr = document.createElement("tr");
+            var otd1 = document.createElement("td");
+            var otd2 = document.createElement("td");
+            var otd3 = document.createElement("td");
+            var otd4 = document.createElement("td");
+            
+            otd1.innerHTML = id;
+            otd2.innerHTML = users[i];
+            otd3.innerHTML = passwords[i];
+            otd4.innerHTML = "<a onclick=\"deleteUser(this)\" href=\"javascript:void(0)\">删除用户</a>";
+            
+            otr.appendChild(otd1);
+            otr.appendChild(otd2);
+            otr.appendChild(otd3);
+            otr.appendChild(otd4);
+            
+            otable.appendChild(otr);
+     */     
+
+        //    <tr>
+        //    <td>id</td>
+        //    <td>username</td>
+        //    <td>password</td>
+        //    <td>操作</td>
+        //  </tr>
+            //用jquey省去了上边一大段代码
+            $('#mytable').append("<tr><td>"+id+"</td><td>"+users[i]+"</td><td>"+passwords[i]+"</td><td><a onclick=\"deleteUser(this)\" href=\"javascript:void(0)\">删除用户</a></td></tr>");
+
+            id++;
+          }
+          }
+        });
+        
+
+
+        //添加滚动条事件
+        $('.scroll').scroll(addData);
+    }
+  );
+
+
+    var id = 1;  
+    //删除对应行并在数据库中删除对应的用户所有信息
+    function deleteUser(node){
+
+      var username = node.parentNode.parentNode.childNodes[1].innerHTML;
+
+
+      //删除数据库用户信息
+      $.ajax({
+        url:"../php/deleteUser.php",
+        type:"get",
+        data:"username=" + username,
+        success:function (data) {
+    
+          //数据库操作成功返回true
+          if(data){
+
+            //删除对应行
+            node.parentNode.parentNode.remove(); 
+          }
+        }
+        });
+      }
+    
+
+
+
+
+
+
+
+  /*
+   *动态显示数据库中所有用户的信息
+   *响应式下拉框 —— ajax加载用户的信息
+   */
+
+    //用来记住下一次获取哪一页的用户信息,将 page 传给服务器
+    var page = 1;
+    //用来记住当addData触发以后(增加数据)以后，滚动条的下一个触发位置是哪里
+    var scrollend = 20;
+
+    function addData(){
+
+          //滚动条到底的时候，ajax请求十条用户数据并添加到table内
+          if($(this).scrollTop() > scrollend){
+            
+            scrollend = scrollend + 370;
+            page++;
+            
+            $.ajax({
+              url:'../php/showAdmin2.php?page='+page,
+              type:'get',
+              data:'',
+              success:function (data) {
+                //数据返回成功就添加用户数据
+                //默认用'&'分隔数据
+                var datas = data.split('&');
+                var users = new Array();
+                var passwords = new Array();
+
+                //将用户名与密码分开
+                for(var i = 0, j = 0;i < datas.length;i = i + 2){
+
+                  users[j] = datas[i];
+                  passwords[j] = datas[i+1];
+                  j++;
+                }
+                
+                
+                //往 table 中添加数据
+                for(var i = 0 ; i<users.length ; i++){
+            
+                  $('#mytable').append("<tr><td>"+id+"</td><td>"+users[i]+"</td><td>"+passwords[i]+"</td><td><a onclick=\"deleteUser(this)\" href=\"javascript:void(0)\">删除用户</a></td></tr>");
+                  id++;
+                }
+                }
+            });
+          }
+    }
+  </script>
+</html>
