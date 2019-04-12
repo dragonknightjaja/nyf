@@ -59,7 +59,7 @@ header("Content-type: text/html; charset=utf-8");
     $sql="select null from source $limit";
     //$result = mysql_query($sql,$con);
     $result = mysqli_query($conn, $sql);
-    $rowCount = mysql_num_rows($result);
+    $rowCount = mysqli_num_rows($result);
     $pageCount = ceil($rowCount/$pageSize);
 
     //计算从第几行数据开始提取，并提取8行数据
