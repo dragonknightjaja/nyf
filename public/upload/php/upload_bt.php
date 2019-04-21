@@ -2,14 +2,32 @@
     header("Content-type: text/html; charset=utf-8");
 
     //用户是否登陆
-    session_start();
-    if(!isset($_SESSION['user'])){
+    // session_start();
+    // if(!isset($_SESSION['user'])){
+    //     echo '请先登陆....';
+    //     header("refresh:3;url=../html/login.html");
+    //     return;
+    // }
+    $conn = new mysqli("localhost", "root", "root", "yinfeng");
+    if (! $conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    /**
+     * 获得登陆的用户名
+     */
+    $sql = "select id from sessions order by last_activity desc";//降序
+    if( !mysqli_query($conn, $sql) ){
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    $row =  mysqli_fetch_assoc($result);
+    $user = $row['id'];//最后登陆的id
+    if($user == null || $user == ""){//未登陆
         echo '请先登陆....';
         header("refresh:3;url=../html/login.html");
         return;
     }
 
-    
     //允许上传的文件后缀:zip ,并且限制文件大小为 : 10M
     $pattern1 = '/.zip/';
 
@@ -28,15 +46,12 @@
             * 往 torrent 表中插入数据
             */
             //$con = mysql_connect("localhost","root","");
-            $conn = new mysqli("localhost", "root", "root", "yinfeng");
-            if (! $conn) {
-                die("Connection failed: " . mysqli_connect_error());
-            }
+
 
             //mysql_select_db('wissen',$con);
             //mysql_query('SET NAMES UTF8'); //避免数据库返回中文时出现乱码
             //种子信息和用户名
-            $user = $_SESSION['user'];
+            //$user = $_SESSION['user'];
             $bt_name = $_POST['name'];
             $bt_describe = $_POST['des'];
             $type = $_POST['type'];
