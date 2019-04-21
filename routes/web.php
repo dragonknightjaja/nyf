@@ -37,3 +37,4 @@ Route::get('articles/show/{id}','ArticleController@show')->name('article.show');
 //     'show'=>'question.show',
 //     ]]);//注意第三个参数 
 //Route::post('password/update','PasswordController@update');
+Route::get('test','TestController@test')->name('test');
