@@ -16,7 +16,7 @@
     /**
      * 获得登陆的用户名
      */
-    $sql = "select id from sessions order by last_activity desc";//降序
+    $sql = "select user_name from sessions order by last_activity desc";//降序
     $result = mysqli_query($conn, $sql);
     if( !$result ){
         die("Connection failed: " . mysqli_connect_error());
