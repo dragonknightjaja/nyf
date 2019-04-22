@@ -8,7 +8,7 @@
     //     header("refresh:3;url=../html/login.html");
     //     return;
     // }
-    $conn = new mysqli("localhost", "root", "root", "yinfeng");
+    $conn = new mysqli("localhost", "root", "545411", "nyf");
     if (! $conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
@@ -17,14 +17,15 @@
      * 获得登陆的用户名
      */
     $sql = "select id from sessions order by last_activity desc";//降序
-    if( !mysqli_query($conn, $sql) ){
+    $result = mysqli_query($conn, $sql);
+    if( !$result ){
         die("Connection failed: " . mysqli_connect_error());
     }
     $row =  mysqli_fetch_assoc($result);
     $user = $row['id'];//最后登陆的id
     if($user == null || $user == ""){//未登陆
         echo '请先登陆....';
-        header("refresh:3;url=../html/login.html");
+        //header("refresh:3;url=../html/login.html");
         return;
     }
 
