@@ -7,10 +7,9 @@ header("Content-type: text/html; charset=utf-8");
      */
 
     //检查page是否为空,为空就默认 page=1 即跳到第一页
-    if($_GET['page']!=null){
+    $page = 1;
+    if(isset($_GET['page'])){
         $page = $_GET['page'];
-    }else{
-        $page=1;
     }
     $pageSize = 8;
     $pageCount = null;
@@ -25,13 +24,17 @@ header("Content-type: text/html; charset=utf-8");
     // }
     // mysql_query("SET NAMES 'UTF8'");
     // mysql_select_db('wissen',$con);
-    $conn = new mysqli("localhost", "root", "root", "yinfeng");
+    $conn = new mysqli("localhost", "root", "545411", "nyf");
     if(!$conn){
       die("Connection failed: " . mysqli_connect_error());
     }
 
     //是否 有按类型筛选的需求
-    $Type = $_GET['type'];
+    $Type = null;
+    if(isset($_GET['type'])){
+        $Type = $_GET['type'];
+    }
+
     $limit = "";
     if($Type!=null){
       switch($Type){
@@ -56,17 +59,17 @@ header("Content-type: text/html; charset=utf-8");
       }
     }
     //一共有多少条数据并计算有多少页
-    $sql="select null from source $limit";
+    $sql = "select null from source $limit";
     //$result = mysql_query($sql,$con);
     $result = mysqli_query($conn, $sql);
     $rowCount = mysqli_num_rows($result);
-    $pageCount = ceil($rowCount/$pageSize);
+    $pageCount = ceil($rowCount / $pageSize);
 
     //计算从第几行数据开始提取，并提取8行数据
     $start = ($page-1)*$pageSize;
     $sql="select * from source $limit limit $start,$pageSize";
     
-    mysqli_query($conn, $sql);
+    $result = mysqli_query($conn, $sql);
     //$result = mysql_query($sql,$con);
 ?>
 
