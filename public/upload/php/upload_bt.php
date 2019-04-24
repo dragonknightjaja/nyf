@@ -22,12 +22,21 @@
         die("Connection failed: " . mysqli_connect_error());
     }
     $row =  mysqli_fetch_assoc($result);
-    $user = $row['id'];//最后登陆的id
-    if($user == null || $user == ""){//未登陆
+    $id = $row['id'];//最后登陆的id
+    if($id == null || $id == ""){//未登陆
         echo '请先登陆....';
-        //header("refresh:3;url=../html/login.html");
+        header("refresh:3;url=../html/login.html");
         return;
     }
+
+    $sql = "select name from users where id=$id";//用户名
+    $result = mysqli_query($conn, $sql);
+    if(!$result){
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    $row = mysqli_fetch_assoc($result);
+    $user = $row['name'];
+    
 
     //允许上传的文件后缀:zip ,并且限制文件大小为 : 10M
     $pattern1 = '/.zip/';
